@@ -1,2 +1,4 @@
 # librARy-server
-Back-end (proxy) server of librARy. (node.js)
+
+librARy 서버입니다.
+
