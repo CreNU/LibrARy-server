@@ -10,20 +10,19 @@ router.get('/', function(req, res, next) {
 });
 
 router.get("/search", function(req, res, next){
-  let param = {
-    "q"    : urlencode("화학테스트"),
+  const param = {
+    "q"    : urlencode("화학"),
     "st"   : "KWRD",
     "si"   : "TOTAL",
     "lmtst": "OR",
     "lmt0" : "TOTAL",
-    "cpp"  : "30",                // 검색 개수
+    "cpp"  : "30",               // 검색 개수
     "bk_2" : "jttjaa000000jttj", // 중앙도서관
     "bk_1" : "jttjkorjttj",      // 한국어
     "bk_0" : "jttjmjttj",        // 단행본
   };
-
-  let url = makeUrl("http://dl.jbnu.ac.kr/search/tot/result", param);
-  let headers = {
+  const url = makeUrl("http://dl.jbnu.ac.kr/search/tot/result", param);
+  const headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0"
   };
 
@@ -46,12 +45,13 @@ router.get("/search", function(req, res, next){
             title     : trim($(this).find(".searchTitle").text()),
             author    : info[0],
             publisher : info[1],
-            symbol    : info[2],
-            number    : "",
+            symbol    : info[2],               // 십진분류 청구기호
+            number    : info[2].split(" ")[0], // 숫자만
+            state     : info[5].includes("중앙도서관 대출가능"),
           };
         });
 
-      res.json(result);
+      res.json(result); // JSON 출력
     });
 
 });
