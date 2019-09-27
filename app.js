@@ -4,12 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// 라우터 정의
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var nlRouter    = require('./routes/nl');   // National Library of Korea
+var jbnuRouter  = require('./routes/jbnu'); // Chonbuk National University (JBNU)
 
 var app = express();
 
-// view engine setup
+// 뷰 엔진 정의
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -19,8 +21,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 인덱스 - 미사용
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
+// 국립중앙도서관
+app.use('/nl', nlRouter);
+
+// 전북대학교 중앙도서관
+app.use('/jbnu', jbnuRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

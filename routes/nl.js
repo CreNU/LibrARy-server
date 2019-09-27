@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-/* GET home page. */
+const request = require('request');
+const cheerio = require('cheerio');
+
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'librARy-server' });
+  res.send('server');
 });
 
-
 module.exports = router;
-
