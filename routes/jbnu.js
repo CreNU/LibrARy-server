@@ -3,6 +3,7 @@ const router = express.Router();
 
 const request = require('request');
 const cheerio = require('cheerio');
+const urlencode = require('urlencode');
 
 router.get('/', function(req, res, next) {
   res.send('server');
@@ -10,43 +11,60 @@ router.get('/', function(req, res, next) {
 
 router.get("/search", function(req, res, next){
   let param = {
-    "q": "%EB%AC%BC%EB%A6%AC",
-    "st": "KWRD",
-    "si": "TOTAL",
+    "q"    : urlencode("화학테스트"),
+    "st"   : "KWRD",
+    "si"   : "TOTAL",
     "lmtst": "OR",
-    "lmt0": "TOTAL",
-    "cpp": "30",
-    "bk_2": "jttjaa000000jttj",
-    "bk_1": "jttjkorjttj",
-    "bk_0": "jttjmjttj",
+    "lmt0" : "TOTAL",
+    "cpp"  : "30",                // 검색 개수
+    "bk_2" : "jttjaa000000jttj", // 중앙도서관
+    "bk_1" : "jttjkorjttj",      // 한국어
+    "bk_0" : "jttjmjttj",        // 단행본
   };
 
   let url = makeUrl("http://dl.jbnu.ac.kr/search/tot/result", param);
+  let headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0"
+  };
 
-  request(url, function(error, response, body){
-    let result = [];
-    const $ = cheerio.load(body);
+  request({ url, headers },
+    function(error, response, body) {
+      const $ = cheerio.load(body);
+      const result = [];
 
-    $(".briefData").each(
-      function (index, ele) {
-        let trim = function (str) {
-          return str.replace(/^\s*|\s*$/g, "");
-        }
-        result.push(trim($(this).find(".searchTitle").text()));
-        console.log(trim($(this).find(".searchTitle").text()));
-      }
-    );
+      $(".briefData").each(
+        function (index, ele) {
+          if ($(this).attr("id") === "divNoResult") { // 검색 결과가 없는 경우
+            return;
+          }
 
-    res.json(result);
-  });
-})
+          let info = $(this).find(".bookline").map(function() {
+            return $(this).text();
+          });
 
+          result[index] = {
+            title     : trim($(this).find(".searchTitle").text()),
+            author    : info[0],
+            publisher : info[1],
+            symbol    : info[2],
+            number    : "",
+          };
+        });
 
-function makeUrl(url, param) {
+      res.json(result);
+    });
+
+});
+
+let trim = function (str) {
+  return str.replace(/^\s*|\s*$/g, "");
+};
+
+let makeUrl = function (url, param) {
   Object.keys(param).forEach(function(key, index) {
     url = url + (index === 0 ? "?" : "&") + key + "=" + param[key];
   });
   return url;
-}
+};
 
 module.exports = router;
