@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/search', (req, res, next) => {
   let book_name = req.query.q;
-  if (book_name === undefined || book_name.length < 3) {
+  if (book_name === undefined || book_name.length <= 1) { // 쿼리 내용이 없거나 1글자인 경우
     res.json([]);
     return;
   }
@@ -80,7 +80,9 @@ router.get('/pos', function(req, res, next) {
     res.json([]);
     return;
   }
-  book_symbol = book_symbol.replace(/[`~!@#$%^&*()_|+\-=?;:'",<>\{\}\\\/]/gi, '').trim();
+
+  // prevent sql injection
+  book_symbol = book_symbol.replace(/[`~!@#$%^&*_|+\-=?;:'",<>\{\}\\\/]/gi, '').trim();
   if (book_symbol.length < 3) {
     res.json([]);
     return;
