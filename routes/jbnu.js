@@ -75,16 +75,22 @@ router.get('/search', (req, res, next) => {
 
 
 router.get('/pos', function(req, res, next) {
-  let book_symbol = req.query.q;
-  if (book_symbol === undefined) {
-    res.json([]);
-    return;
+  const null_info = {
+    floor: -1,
+    shelf: -1,
+    dir: -1,
+    pos: -1,
   }
 
+  let book_symbol = req.query.q;
+  if (book_symbol === undefined) {
+    res.json(null_info);
+    return;
+  }
   // prevent sql injection
   book_symbol = book_symbol.replace(/[`~!@#$%^&*_|+\-=?;:'",<>\{\}\\\/]/gi, '').trim();
   if (book_symbol.length < 3) {
-    res.json([]);
+    res.json(null_info);
     return;
   }
 
@@ -96,7 +102,11 @@ router.get('/pos', function(req, res, next) {
   connection.query("SELECT * FROM `shelf_jbnu` WHERE symbol >= '" + book_symbol + "' ORDER BY pos LIMIT 1;", (err, rows, fields) => {
     if (err) throw err;
 
-    res.json(rows[0]);
+    if (rows.length === 0) {
+      res.json(null_info);
+    } else {
+      res.json(rows[0]);
+    }
   });
   
   connection.end();
