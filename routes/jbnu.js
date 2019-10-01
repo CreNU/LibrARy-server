@@ -5,6 +5,8 @@ const request = require('request');
 const cheerio = require('cheerio'); // https://cheerio.js.org/
 const urlencode = require('urlencode');
 
+const common = require('./common');
+const database = require('./database');
 
 router.get('/', function(req, res, next) {
   res.send('server');
@@ -32,7 +34,7 @@ router.get('/search', (req, res, next) => {
     bk_0     : 'jttjmjttj',        // 단행본
     briefType: 'T',                // 테이블 형태
   };
-  const url = makeUrl('http://dl.jbnu.ac.kr/search/tot/result', param);
+  const url = common.makeUrl('http://dl.jbnu.ac.kr/search/tot/result', param);
   const headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0'
   };
@@ -50,9 +52,9 @@ router.get('/search', (req, res, next) => {
       //$(elem).find('td').map((i, elem) => info[i] = $(elem).text()); 
 
       const title     = $(elem).find('.searchTitle').text();;
-      const author    = trimTab($(elem).find('td:nth-child(4)').text());
-      const publisher = trimTab($(elem).find('td:nth-child(5)').text());
-      const symbol    = trimTab($(elem).find('td:nth-child(6)').text()); // 십진분류 청구기호
+      const author    = common.trimTab($(elem).find('td:nth-child(4)').text());
+      const publisher = common.trimTab($(elem).find('td:nth-child(5)').text());
+      const symbol    = common.trimTab($(elem).find('td:nth-child(6)').text()); // 십진분류 청구기호
       const number    = symbol.split(' ')[0]; // 숫자만
       const state     = $(elem).find('.briefDeFont').text().includes('중앙도서관 대출가능'); // 대출가능 여부
 
@@ -72,11 +74,8 @@ router.get('/search', (req, res, next) => {
 });
 
 
-
 router.get('/pos', function(req, res, next) {
   let book_symbol = req.query.q;
-  
-  
   if (book_symbol === undefined) {
     res.json([]);
     return;
@@ -88,12 +87,7 @@ router.get('/pos', function(req, res, next) {
   }
 
   const mysql      = require('mysql');
-  const connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : '***', // hide for github
-    password : '***',
-    database : 'crenu',
-  });
+  const connection = mysql.createConnection(database.info);
   
   connection.connect();
   
@@ -106,27 +100,5 @@ router.get('/pos', function(req, res, next) {
   connection.end();
 });
 
-
-
-
-
-
-
-
-
-let trimTab = (str) => {
-  return str.replace(/[\t\n\r]/gm, "").trim(); //str.replace(/^\s*|\s*$/g, "");
-};
-
-let removeSpecialChars = (str) => {
-  return str.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
-};
-
-let makeUrl = (url, param) => {
-  Object.keys(param).forEach((key, index) => {
-    url = url + (index === 0 ? "?" : "&") + key + "=" + param[key];
-  });
-  return url;
-};
 
 module.exports = router;

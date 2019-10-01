@@ -1,3 +1,7 @@
+// 프로덕션 모드 활성화
+// export NODE_ENV=production
+// set NODE_ENV=production
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
