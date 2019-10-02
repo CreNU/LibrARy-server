@@ -10,6 +10,11 @@ librARy 서버입니다.
 
 + CentOS v.7.3
 + Node.js v.10
+  - express
+  - request
+  - cheerio
+  - urlencode
+  - mysql
 + MariaDB v.10.3
 
 
@@ -21,3 +26,6 @@ librARy 서버입니다.
 
 포트 바꾸는것도 잊지 말기!
 + `export PORT=12345`
+
+패키지 정리
++ `npm prune`
