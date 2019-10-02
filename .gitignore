@@ -64,4 +64,4 @@ typings/
 
 
 # Database Login Info
-database.js
+config.json

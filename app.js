@@ -1,19 +1,19 @@
-// 프로덕션 모드 활성화
-// export NODE_ENV=production
-// set NODE_ENV=production
-
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
+// 라이브러리
+var createError  = require('http-errors');
+var express      = require('express');
+var path         = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var logger       = require('morgan');
 
-// 라우터 정의
+// 라우터
 var indexRouter = require('./routes/index');
 var nlRouter    = require('./routes/nl');   // National Library of Korea
 var jbnuRouter  = require('./routes/jbnu'); // Chonbuk National University (JBNU)
 
-var app = express();
+// 앱 및 설정
+var app    = express();
+var config = require('./config.json')[app.get('env')];
+app.set('config', config);
 
 // 뷰 엔진 정의
 app.set('views', path.join(__dirname, 'views'));
@@ -25,7 +25,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 인덱스 - 미사용
+
+// 메인 페이지
 app.use('/', indexRouter);
 
 // 국립중앙도서관

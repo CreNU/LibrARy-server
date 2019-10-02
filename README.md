@@ -12,3 +12,12 @@ librARy 서버입니다.
 + Node.js v.10
 + MariaDB v.10.3
 
+
+
+
+---
+프로덕션 모드 활성화 잊지 말기!
+```
+LINUX   : export NODE_ENV=production
+WINDOWS : set NODE_ENV=production
+```

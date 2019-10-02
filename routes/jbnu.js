@@ -1,14 +1,16 @@
+// 익스프레스
 const express = require('express');
 const router = express.Router();
 
-const request = require('request');
-const cheerio = require('cheerio'); // https://cheerio.js.org/
+// 라이브러리
+const request   = require('request');
+const cheerio   = require('cheerio'); // https://cheerio.js.org/
 const urlencode = require('urlencode');
 
 const common = require('./common');
-const database = require('./database');
 
-router.get('/', function(req, res, next) {
+
+router.get('/', (req, res, next) => {
   res.send('server');
 });
 
@@ -95,11 +97,13 @@ router.get('/pos', function(req, res, next) {
   }
 
   const mysql      = require('mysql');
-  const connection = mysql.createConnection(database.info);
+  const login_info = req.app.get('config').database;
+  const connection = mysql.createConnection(login_info);
   
+  const query = "SELECT * FROM `shelf_jbnu` WHERE symbol >= '" + book_symbol + "' ORDER BY pos LIMIT 1;";
+
   connection.connect();
-  
-  connection.query("SELECT * FROM `shelf_jbnu` WHERE symbol >= '" + book_symbol + "' ORDER BY pos LIMIT 1;", (err, rows, fields) => {
+  connection.query(query, (err, rows, fields) => {
     if (err) throw err;
 
     if (rows.length === 0) {
