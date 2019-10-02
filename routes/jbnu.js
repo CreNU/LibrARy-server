@@ -6,6 +6,7 @@ const router = express.Router();
 const request   = require('request');
 const cheerio   = require('cheerio'); // https://cheerio.js.org/
 const urlencode = require('urlencode');
+const mysql     = require('mysql2/promise');
 
 const common = require('./common');
 
@@ -13,9 +14,23 @@ const common = require('./common');
 router.get('/', (req, res, next) => {
   res.send('server');
 });
+//const info = [];
+//$(elem).find('td').map((i, elem) => info[i] = $(elem).text()); 
+
+function doRequest(url) {
+  return new Promise((resolve, reject) => {
+    request(url, (error, res, body) => {
+      if (!error && res.statusCode == 200) {
+        resolve(body);
+      } else {
+        reject(error);
+      }
+    });
+  });
+}
 
 
-router.get('/search', (req, res, next) => {
+router.get('/search', async (req, res, next) => {
   let book_name = req.query.q;
   if (book_name === undefined || book_name.length <= 1) { // 쿼리 내용이 없거나 1글자인 경우
     res.json([]);
@@ -30,7 +45,7 @@ router.get('/search', (req, res, next) => {
     si       : 'TOTAL',
     lmtst    : 'OR',
     lmt0     : 'TOTAL',
-    cpp      : '30',               // 검색 개수
+    cpp      : '20',               // 검색 개수
     bk_2     : 'jttjaa000000jttj', // 중앙도서관
     bk_1     : 'jttjkorjttj',      // 한국어
     bk_0     : 'jttjmjttj',        // 단행본
@@ -41,39 +56,61 @@ router.get('/search', (req, res, next) => {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0'
   };
 
-  request({ url, headers }, (error, response, body) => {
+  let body;
+  let result = [];
+
+  // 전자도서관 쿼리
+  try {
+    body = await doRequest({
+      url,
+      headers,
+    });
+  }
+  catch (err) {
+    console.log('request failed!');
+    console.log(err);
+    res.json([]);
+    return;
+  }
+
+  // 파싱
+  try {
     const $ = cheerio.load(body);
-    const result = [];
-    
     $('#briefTable tbody tr').each((i, elem) => {
       if (i % 2 !== 0) { // 짝수번째 행에는 데이터 없음 (i는 0부터 시작)
         return;
       }
-
-      //const info = [];
-      //$(elem).find('td').map((i, elem) => info[i] = $(elem).text()); 
-
-      const title     = $(elem).find('.searchTitle').text();;
-      const author    = common.trimTab($(elem).find('td:nth-child(4)').text());
-      const publisher = common.trimTab($(elem).find('td:nth-child(5)').text());
-      const symbol    = common.trimTab($(elem).find('td:nth-child(6)').text()); // 십진분류 청구기호
-      const number    = symbol.split(' ')[0]; // 숫자만
-      const state     = $(elem).find('.briefDeFont').text().includes('중앙도서관 대출가능'); // 대출가능 여부
-
       result.push({
-        title,
-        author,
-        publisher,
-        symbol,
-        number,
-        state,
+        title     : $(elem).find('.searchTitle').text(),
+        author    : common.trimTab($(elem).find('td:nth-child(4)').text()),
+        publisher : common.trimTab($(elem).find('td:nth-child(5)').text()),
+        symbol    : common.trimTab($(elem).find('td:nth-child(6)').text()), // 십진분류 청구기호
+        state     : $(elem).find('.briefDeFont').text().includes('중앙도서관 대출가능'), // 대출가능 여부
       });
     });
-    
-    res.json(result); // JSON 출력
-  });
+  }
+  catch (err) {
+    console.log('parse failed!');
+    console.log(err);
+    res.json([]);
+    return;
+  }
 
+
+
+
+
+
+  res.json(result); // JSON 출력
 });
+
+
+
+
+
+
+
+
 
 
 router.get('/pos', function(req, res, next) {
@@ -115,6 +152,21 @@ router.get('/pos', function(req, res, next) {
   
   connection.end();
 });
+
+
+
+
+const getConnection = async (pool) => {
+  try {
+    const connection = await pool.getConnection(async conn => conn);
+    return connection;
+  } catch(err) {
+    console.log('DB Error!');
+    return false;
+  }
+};
+
+
 
 
 module.exports = router;
