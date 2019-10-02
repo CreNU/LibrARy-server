@@ -17,7 +17,7 @@ librARy 서버입니다.
 
 ---
 프로덕션 모드 활성화 잊지 말기!
-```
-LINUX   : export NODE_ENV=production
-WINDOWS : set NODE_ENV=production
-```
++ `export NODE_ENV=production`
+
+포트 바꾸는것도 잊지 말기!
++ `export PORT=12345`
