@@ -1,14 +1,15 @@
 // 익스프레스
-const express = require('express');
-const router = express.Router();
+const express   = require('express');
+const router    = express.Router();
 
 // 라이브러리
 const request   = require('request');
 const cheerio   = require('cheerio'); // https://cheerio.js.org/
 const urlencode = require('urlencode');
-const mysql     = require('mysql2/promise');
+const mysql     = require('mysql');
 
-const common = require('./common');
+// 기타
+const common    = require('./common');
 
 
 router.get('/', (req, res, next) => {
@@ -17,17 +18,38 @@ router.get('/', (req, res, next) => {
 //const info = [];
 //$(elem).find('td').map((i, elem) => info[i] = $(elem).text()); 
 
-function doRequest(url) {
+const doRequest = (url) => {
   return new Promise((resolve, reject) => {
-    request(url, (error, res, body) => {
-      if (!error && res.statusCode == 200) {
+    request(url, (err, res, body) => {
+      if (!err && res.statusCode == 200) {
         resolve(body);
       } else {
-        reject(error);
+        reject(err);
       }
     });
   });
-}
+};
+
+const doQuery = (connection, query) => {
+  return new Promise((resolve, reject) => {
+    console.log(query);
+    connection.query(query, (err, rows, fields) => {
+      if (!err) {
+        resolve(rows[0]);
+      } else {
+        reject(err);
+      }
+    });
+  });
+};
+
+
+
+
+
+
+
+
 
 
 router.get('/search', async (req, res, next) => {
@@ -45,7 +67,7 @@ router.get('/search', async (req, res, next) => {
     si       : 'TOTAL',
     lmtst    : 'OR',
     lmt0     : 'TOTAL',
-    cpp      : '20',               // 검색 개수
+    cpp      : '5',               // 검색 개수
     bk_2     : 'jttjaa000000jttj', // 중앙도서관
     bk_1     : 'jttjkorjttj',      // 한국어
     bk_0     : 'jttjmjttj',        // 단행본
@@ -65,8 +87,7 @@ router.get('/search', async (req, res, next) => {
       url,
       headers,
     });
-  }
-  catch (err) {
+  } catch (err) {
     console.log('request failed!');
     console.log(err);
     res.json([]);
@@ -76,6 +97,7 @@ router.get('/search', async (req, res, next) => {
   // 파싱
   try {
     const $ = cheerio.load(body);
+    // 다행이도 cheerio의 each는 동기 함수임
     $('#briefTable tbody tr').each((i, elem) => {
       if (i % 2 !== 0) { // 짝수번째 행에는 데이터 없음 (i는 0부터 시작)
         return;
@@ -85,19 +107,68 @@ router.get('/search', async (req, res, next) => {
         author    : common.trimTab($(elem).find('td:nth-child(4)').text()),
         publisher : common.trimTab($(elem).find('td:nth-child(5)').text()),
         symbol    : common.trimTab($(elem).find('td:nth-child(6)').text()), // 십진분류 청구기호
-        state     : $(elem).find('.briefDeFont').text().includes('중앙도서관 대출가능'), // 대출가능 여부
+        canBorrow : $(elem).find('.briefDeFont').text().includes('중앙도서관 대출가능'), // 대출가능 여부
       });
     });
-  }
-  catch (err) {
+  } catch (err) {
     console.log('parse failed!');
     console.log(err);
     res.json([]);
     return;
   }
 
+  /*
+  const dbConfig = req.app.get('config').database;
+  async function getResult(symbol) {
+    let connection;
+    try {
+      connection = await mysql.createConnection(dbConfig);
 
+      const table  = 'shelf_jbnu';
+      const query  = "SELECT * FROM `" + table + "` WHERE symbol >= '" + symbol + "' ORDER BY pos LIMIT 1;";
+      const result = await connection.query(query);
 
+      console.log(result);
+
+      connection.end();
+
+      result['success'] = true;
+      return result;
+
+    } catch (err) {
+      console.log('db query failed!');
+      if (connection && connection.end) connection.end();
+      return false;
+    }
+  }*/
+
+  const dbConfig = req.app.get('config').database;
+  const dbTable = 'shelf_jbnu';
+  const connection = mysql.createConnection(dbConfig);
+  //const Asymbol = symbol.replace(/[`~!@#$%^&*_|+\-=?;:'",<>\{\}\\\/]/gi, '').trim();
+  
+  connection.connect();
+
+  for (const item of result) {
+    console.log(item['symbol']);
+
+    try {
+      const query = "SELECT * FROM `shelf_jbnu` WHERE symbol >= '" + item['symbol'] + "' ORDER BY pos LIMIT 1;";
+
+      const position = await doQuery(connection, query);
+      item['success'] = true;
+      item['pos'] = position;
+    } catch (err) {
+      console.log('db query failed!');
+      console.log(err);
+      item['success'] = false;
+    }
+    
+  }
+  
+  if (connection && connection.end) {
+    connection.end();
+  }
 
 
 
