@@ -28,10 +28,10 @@
   - [debug](https://github.com/visionmedia/debug)
   - [http-errors](https://github.com/jshttp/http-errors)
   - [request](https://github.com/request/request)
-  - [cheerio](https://github.com/cheeriojs/cheerio) :
+  - [cheerio](https://github.com/cheeriojs/cheerio)
   - [urlencode](https://github.com/node-modules/urlencode)
   - [mysql](https://github.com/mysqljs/mysql)
-  - [pug](https://github.com/pugjs/pug) : 지울 예정
+  - [pug](https://github.com/pugjs/pug)
 + MariaDB v.10.3
 
 
@@ -98,7 +98,7 @@ pm2 start ecosystem.json
 6. Create a new pull-request.
 
 ## License
-[MIT License](./LICENSE)
+[MIT License](./LICENSE.md)
 
 
 
