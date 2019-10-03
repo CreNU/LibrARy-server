@@ -27,9 +27,10 @@ SOFTWARE.
 
 
 ## MODULES :
+
 <br>
 
-## express
+## [express](https://github.com/expressjs/express)
 ```
 (The MIT License)
 
@@ -58,7 +59,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
 
 
-## cookie-parser
+## [cookie-parser](https://github.com/expressjs/cookie-parser)
 ```
 (The MIT License)
 
@@ -86,7 +87,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
 
 
-## morgan
+## [morgan](https://github.com/expressjs/morgan)
 ```
 (The MIT License)
 
@@ -114,7 +115,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
 
 
-## debug
+## [debug](https://github.com/visionmedia/debug)
 ```
 (The MIT License)
 
@@ -137,7 +138,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
 
 
-## http-errors
+## [http-errors](https://github.com/jshttp/http-errors)
 ```
 The MIT License (MIT)
 
@@ -164,7 +165,7 @@ THE SOFTWARE.
 ```
 
 
-## request
+## [request](https://github.com/request/request)
 ```
 Apache License
 Version 2.0, January 2004
@@ -199,7 +200,7 @@ END OF TERMS AND CONDITIONS
 ```
 
 
-## cheerio
+## [cheerio](https://github.com/cheeriojs/cheerio)
 ```
 MIT License
 
@@ -224,7 +225,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## urlencode
+## [urlencode](https://github.com/node-modules/urlencode)
 ```
 This software is licensed under the MIT License.
 
@@ -251,7 +252,7 @@ THE SOFTWARE.
 ```
 
 
-## mysql
+## [mysql](https://github.com/mysqljs/mysql)
 ```
 MIT License
 
@@ -276,7 +277,7 @@ Copyright (c) 2012 Felix Geisendörfer (felix@debuggable.com) and contributors
  THE SOFTWARE.
 ```
 
-## pug
+## [pug](https://github.com/pugjs/pug)
 ```
 MIT License
 ```
