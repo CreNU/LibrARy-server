@@ -11,7 +11,7 @@
 ![](https://img.shields.io/github/issues-closed/crenu/library-server)
 ![](https://img.shields.io/github/last-commit/crenu/library-server)
 
-### librARy의 API 서버입니다.
+### [librARy](https://github.com/CreNU/librARy-unity)의 API 서버입니다.
 ### API 명세 및 C# 연동 예제는 [위키 페이지][Wiki]에서 보실 수 있습니다.
 
 현재 도서 리스트 쿼리와 책장 위치 쿼리만 지원합니다.
@@ -78,14 +78,19 @@ pm2 start ecosystem.json
 
 
 ## Contributing
-1. **먼저 [CONTRIBUTING.md](./CONTRIBUTING.md)를 읽어주세요. (Read [CONTRIBUTING.md](./CONTRIBUTING.md) first.)**
-2. 레파지토리를 포크해 주세요. (Fork this repository) (https://github.com/CreNU/librARy-server/fork)
-3. 피처 브랜치를 만들어 주세요. (Create your feature branch)
-4. 브랜치에 커밋해 주세요. (Commit your changes)
-5. 브랜치에 푸시해 주세요. (Push to the branch)
-6. 풀 리퀘스트를 작성해 주세요. (Create a new pull-request)
-
-
+1. **먼저 [CONTRIBUTING.md](./CONTRIBUTING.md)를 읽어주세요.**
+2. 레파지토리를 포크해 주세요. (https://github.com/CreNU/librARy-server/fork)
+3. 피처 브랜치를 만들어 주세요.
+4. 브랜치에 커밋해 주세요.
+5. 브랜치에 푸시해 주세요.
+6. 풀 리퀘스트를 작성해 주세요.
+<!-- -->
+1. **Read [CONTRIBUTING.md](./CONTRIBUTING.md) first.**
+2. Fork this repository. (https://github.com/CreNU/librARy-server/fork)
+3. Create your feature branch.
+4. Commit your changes.
+5. Push to the branch.
+6. Create a new pull-request.
 
 
 [Wiki]: https://github.com/CreNU/librARy-server/wiki
