@@ -1,10 +1,19 @@
 # librARy-server
 
-## librARy API 서버입니다.
+![](https://img.shields.io/badge/librARy-server-orange)
+![](https://img.shields.io/badge/npm-v.1.5.0-orange)
 
-API 명세는 [위키 페이지](https://github.com/CreNU/librARy-server/wiki)에서 보실 수 있습니다.
+![](https://img.shields.io/github/languages/count/crenu/library-server)
+![](https://img.shields.io/github/languages/top/crenu/library-server)
+![](https://img.shields.io/github/languages/code-size/crenu/library-server)
+![](https://img.shields.io/github/repo-size/crenu/library-server)
+![](https://img.shields.io/github/issues/crenu/library-server)
+![](https://img.shields.io/github/issues-closed/crenu/library-server)
+![](https://img.shields.io/github/last-commit/crenu/library-server)
 
-현재 버전 : v.1.5.0
+### librARy의 API 서버입니다.
+### 현재 버전 : v.1.5.0
+### API 명세는 [위키 페이지](https://github.com/CreNU/librARy-server/wiki)에서 보실 수 있습니다.
 
 현재 도서 리스트 쿼리와 책장 위치 쿼리만 지원합니다.
 도서 리스트의 경우 전자도서관 홈페이지를 파싱하는 프록시로 동작합니다.
@@ -20,7 +29,6 @@ API 명세는 [위키 페이지](https://github.com/CreNU/librARy-server/wiki)�
   - urlencode
   - mysql
 + MariaDB v.10.3
-
 
 
 
