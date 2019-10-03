@@ -78,44 +78,49 @@ router.get('/', async (req, res, next) => {
   }
 
   // 책 위치 쿼리
+  const dbConfig = req.app.get('config').database;
+  const dbTable  = 'shelf_jbnu_new';
+  const dbConn   = mysql.createConnection(dbConfig);
   try {
     // 데이터베이스 연결
-    const dbConfig = req.app.get('config').database;
-    const dbTable  = 'shelf_jbnu';
-    const dbConn   = mysql.createConnection(dbConfig);
     dbConn.connect();
-  
     // 책 각각의 위치 조회
     for (const item of result) {
-      //console.log(item['symbol']);
       try {
         const symbol = item['symbol'].replace(/[`~!@#$%^&*_|+\-=?;:'",<>\{\}\\\/]/gi, '').trim();
         const query  = "SELECT * FROM `" + dbTable + "` WHERE symbol >= '" + symbol + "' ORDER BY pos LIMIT 1;";
         const pos    = await doQuery(dbConn, query);
 
         if (pos.length > 0) { // 위치 정보가 있을 경우
-          item['floor']   = pos[0]['floor'];
-          item['shelf']   = pos[0]['shelf'];
-          item['pos']     = pos[0]['pos'];
-          item['success'] = true;
+          const p = pos[0]['pos'] - 1; // 0 ~ 65
+          item['floor']       = pos[0]['floor'];
+          item['shelf']       = pos[0]['shelf'];
+          item['pos']         = pos[0]['shelf'];
+          item['col']         = 11 - parseInt(p / 6);
+          item['row']         = 6 - (p % 6);
+          item['success']     = true;
+          item['arAvailable'] = true;
         } else {
-          item['success'] = false; // 미등록 책 (위치 모름)
+          item['success']     = false;
+          item['arAvailable'] = false; // 미등록 책 (위치 모름)
         }
       } catch (err) {
         console.log('[FAIL] Cannot query book position.');
         console.log(err);
-        item['success'] = false; // 디비 조회 실패
+        item['success']     = false;
+        item['arAvailable'] = false; // 디비 조회 실패
       }
-    }
-    // 닫기
-    if (dbConn && dbConn.end) {
-      dbConn.end();
     }
   } catch (err) {
     console.log('[FAIL] Cannot retrieve book\'s position.');
     console.log(err);
     res.json([]);
     return;
+  } finally {
+    // 데이터베이스 닫기
+    if (dbConn && dbConn.end) {
+      dbConn.end();
+    }
   }
 
 
