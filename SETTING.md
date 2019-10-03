@@ -107,9 +107,37 @@ port=12345
 systemctl restart mariadb
 ```
 
-## 접속
+## 데이터베이스 접속
 + MySQL Workbench
 + phpMyAdmin
 + [HeidiSQL](https://www.heidisql.com/)
 + ...
 
+# pm2 설치
+전역 설치
+```
+npm install pm2 -g
+pm2 -v
+```
+
+기본 명령
+```
+pm2 start app.js
+pm2 start app.js --name "example"
+pm2 list
+pm2 show example
+pm2 restart example
+pm2 stop example
+pm2 logs example
+pm2 monit
+```
+
+클러스터 (0 = cpu count)
+```
+pm2 start app.js -i 0 --name "example"
+```
+
+설정 파일에서 실행
+```
+pm2 start ecosystem.json
+```
