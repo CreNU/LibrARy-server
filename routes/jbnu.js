@@ -27,7 +27,7 @@ router.get('/', async (req, res, next) => {
     si       : 'TOTAL',
     lmtst    : 'OR',
     lmt0     : 'TOTAL',
-    cpp      : '5',               // 검색 개수
+    cpp      : '20',               // 검색 개수
     bk_2     : 'jttjaa000000jttj', // 중앙도서관
     bk_1     : 'jttjkorjttj',      // 한국어
     bk_0     : 'jttjmjttj',        // 단행본
@@ -102,7 +102,7 @@ router.get('/', async (req, res, next) => {
           item['success'] = false; // 미등록 책 (위치 모름)
         }
       } catch (err) {
-        console.log('db query failed!');
+        console.log('[FAIL] Cannot query book position.');
         console.log(err);
         item['success'] = false; // 디비 조회 실패
       }
