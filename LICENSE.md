@@ -253,6 +253,8 @@ THE SOFTWARE.
 
 ## mysql
 ```
+MIT License
+
 Copyright (c) 2012 Felix Geisendörfer (felix@debuggable.com) and contributors
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -276,5 +278,5 @@ Copyright (c) 2012 Felix Geisendörfer (felix@debuggable.com) and contributors
 
 ## pug
 ```
-MIT
+MIT License
 ```
