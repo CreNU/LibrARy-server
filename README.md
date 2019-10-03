@@ -31,7 +31,14 @@
 
 
 ## Installation
-See [SETTING.md](./SETTING.md) to install Node.js and MariaDB
+Node.js와 MariaDB가 필요합니다. [SETTING.md](./SETTING.md)를 참고해 설치해 주세요.<br>
+See [SETTING.md](./SETTING.md) to install Node.js and MariaDB.
+
+`config_.json`에서 데이터베이스 정보를 수정하고 이름을 `config.json`으로 바꿔주세요.<br>
+Edit the database information in `config_.json` and change name to `config.json`.
+
+패키지는 다음과 같이 설치하고 실행합니다 :<br>
+Install and run the package as follows :
 ```
 git clone https://github.com/CreNU/librARy-server
 cd librARy-server
@@ -41,11 +48,10 @@ pm2 start ecosystem.json
 ```
 
 
-## Usage example
+## Usage Example
 `http://<server-ip>:<port>/<lib-name>?q=<book-name>`
 
-*더 많은 예제와 API 명세는 [위키][Wiki]에서 보실 수 있습니다.*
-
+*더 많은 예제와 API 명세는 [위키][Wiki]에서 보실 수 있습니다.*<br>
 *For more examples and usage, please refer to the [Wiki][Wiki].*
 
 
@@ -65,19 +71,14 @@ pm2 start ecosystem.json
   - 프로세스가 간헐적으로 꺼지는 문제가 있습니다.
 
 
-## Before deploy
-프로덕션 모드 활성화 잊지 말기!
-+ `export NODE_ENV=production`
-
-포트 바꾸는것도 잊지 말기!
-+ `export PORT=12345`
-
-패키지 정리
-+ `npm prune`
+## Before Deploy
++ ~~프로덕션 모드 활성화 잊지 말기! `export NODE_ENV=production`~~ (pm2 에코시스템으로 실행)
++ ~~포트 바꾸는것도 잊지 말기! `export PORT=12345`~~ 
++ ~~패키지 정리하기! `npm prune`~~ (완료.)
 
 
-# Contributing
-1. 먼저 포크해 주세요. (Fork it) (https://github.com/CreNU/librARy-server/fork)
+## Contributing
+1. 레파지토리를 포크해 주세요. (Fork it) (https://github.com/CreNU/librARy-server/fork)
 2. 피처 브랜치를 만들어 주세요. (Create your feature branch)
 3. 브랜치에 커밋해 주세요. (Commit your changes)
 4. 브랜치에 푸시해 주세요. (Push to the branch)
