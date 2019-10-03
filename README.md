@@ -1,4 +1,4 @@
-# librARy-server
+# 🖥️ librARy-server
 
 ![](https://img.shields.io/badge/librARy-server-orange)
 ![](https://img.shields.io/badge/npm-v.1.5.1-orange)
