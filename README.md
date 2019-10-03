@@ -72,17 +72,18 @@ pm2 start ecosystem.json
 
 
 ## Before Deploy
-+ ~~프로덕션 모드 활성화 잊지 말기! `export NODE_ENV=production`~~ (pm2 에코시스템으로 실행)
-+ ~~포트 바꾸는것도 잊지 말기! `export PORT=12345`~~ 
++ ~~프로덕션 모드 활성화 잊지 말기! `export NODE_ENV=production`~~ (`pm2 start ecosystem.json`)
++ 포트 바꾸는것도 잊지 말기! ~~`export PORT=12345`~~ (`ecosystem.json`에서 바꿀 것.)
 + ~~패키지 정리하기! `npm prune`~~ (완료.)
 
 
 ## Contributing
-1. 레파지토리를 포크해 주세요. (Fork it) (https://github.com/CreNU/librARy-server/fork)
-2. 피처 브랜치를 만들어 주세요. (Create your feature branch)
-3. 브랜치에 커밋해 주세요. (Commit your changes)
-4. 브랜치에 푸시해 주세요. (Push to the branch)
-5. 풀 리퀘스트를 작성해 주세요. (Create a new Pull Request)
+1. **먼저 [CONTRIBUTING.md](./CONTRIBUTING.md)를 읽어주세요. (Read [CONTRIBUTING.md](./CONTRIBUTING.md) first.)**
+2. 레파지토리를 포크해 주세요. (Fork this repository) (https://github.com/CreNU/librARy-server/fork)
+3. 피처 브랜치를 만들어 주세요. (Create your feature branch)
+4. 브랜치에 커밋해 주세요. (Commit your changes)
+5. 브랜치에 푸시해 주세요. (Push to the branch)
+6. 풀 리퀘스트를 작성해 주세요. (Create a new pull-request)
 
 
 
