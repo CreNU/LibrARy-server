@@ -1,8 +1,8 @@
 # librARy-server
 
-librARy API 서버입니다.
+## librARy API 서버입니다.
 
-API 명세는 [위키 페이지](./wiki)에서 보실 수 있습니다.
+API 명세는 [위키 페이지](https://github.com/CreNU/librARy-server/wiki)에서 보실 수 있습니다.
 
 현재 버전 : v.1.5.0
 
