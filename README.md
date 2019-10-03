@@ -22,16 +22,6 @@
 
 + CentOS v.7.3
 + Node.js v.10
-  - [express](https://github.com/expressjs/express)
-  - [cookie-parser](https://github.com/expressjs/cookie-parser)
-  - [morgan](https://github.com/expressjs/morgan)
-  - [debug](https://github.com/visionmedia/debug)
-  - [http-errors](https://github.com/jshttp/http-errors)
-  - [request](https://github.com/request/request)
-  - [cheerio](https://github.com/cheeriojs/cheerio)
-  - [urlencode](https://github.com/node-modules/urlencode)
-  - [mysql](https://github.com/mysqljs/mysql)
-  - [pug](https://github.com/pugjs/pug)
 + MariaDB v.10.3
 
 
