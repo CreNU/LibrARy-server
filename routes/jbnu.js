@@ -96,6 +96,7 @@ router.get('/', async (req, res, next) => {
           item['floor']       = pos[0]['floor'];
           item['shelf']       = pos[0]['shelf'];
           item['pos']         = pos[0]['shelf'];
+          item['dir']         = pos[0]['dir'];
           item['col']         = 11 - parseInt(p / 6);
           item['row']         = 6 - (p % 6);
           item['success']     = true;

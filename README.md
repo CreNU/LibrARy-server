@@ -1,7 +1,7 @@
 # librARy-server
 
 ![](https://img.shields.io/badge/librARy-server-orange)
-![](https://img.shields.io/badge/npm-v.1.5.0-orange)
+![](https://img.shields.io/badge/npm-v.1.5.1-orange)
 
 ![](https://img.shields.io/github/languages/count/crenu/library-server)
 ![](https://img.shields.io/github/languages/top/crenu/library-server)
