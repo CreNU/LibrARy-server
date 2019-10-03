@@ -1,18 +1,13 @@
-// 라이브러리
-var createError  = require('http-errors');
-var express      = require('express');
-var path         = require('path');
-var cookieParser = require('cookie-parser');
-var logger       = require('morgan');
-
-// 라우터
-var indexRouter = require('./routes/index');
-var nlRouter    = require('./routes/nl');   // National Library of Korea
-var jbnuRouter  = require('./routes/jbnu'); // Chonbuk National University (JBNU)
+// 라이브러리 로드
+const createError  = require('http-errors');
+const express      = require('express');
+const path         = require('path');
+const cookieParser = require('cookie-parser');
+const logger       = require('morgan');
 
 // 앱 및 설정
-var app    = express();
-var config = require('./config.json')[app.get('env')];
+const app         = express();
+const config      = require('./config.json')[app.get('env')];
 app.set('config', config);
 
 // 뷰 엔진 정의
@@ -26,31 +21,29 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// 메인 페이지
-app.use('/', indexRouter);
+// 라우터 정의
+const indexRouter = require('./routes/index'); // Index
+const nlRouter    = require('./routes/nl');    // National Library of Korea
+const jbnuRouter  = require('./routes/jbnu');  // Chonbuk National University (JBNU)
 
-// 국립중앙도서관
-app.use('/nl', nlRouter);
-
-// 전북대학교 중앙도서관
-app.use('/jbnu', jbnuRouter);
-
+// 라우터 등록
+app.use('/', indexRouter); // 메인 페이지
+app.use('/nl', nlRouter); // 국립중앙도서관
+app.use('/jbnu', jbnuRouter); // 전북대학교 중앙도서관
 
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+// 미등록 페이지는 오류로 처리
+app.use((req, res, next) => {
+    next(createError(404));
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// 오류 처리
+app.use((err, req, res, next) => {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;
