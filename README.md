@@ -12,8 +12,7 @@
 ![](https://img.shields.io/github/last-commit/crenu/library-server)
 
 ### librARy의 API 서버입니다.
-### 현재 버전 : v.1.5.0
-### API 명세는 [위키 페이지](https://github.com/CreNU/librARy-server/wiki)에서 보실 수 있습니다.
+### API 명세 및 C# 연동 예제는 [위키 페이지](https://github.com/CreNU/librARy-server/wiki)에서 보실 수 있습니다.
 
 현재 도서 리스트 쿼리와 책장 위치 쿼리만 지원합니다.
 도서 리스트의 경우 전자도서관 홈페이지를 파싱하는 프록시로 동작합니다.
