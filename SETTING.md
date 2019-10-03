@@ -123,21 +123,21 @@ pm2 -v
 기본 명령
 ```
 pm2 start app.js
-pm2 start app.js --name "example"
+pm2 start app.js --name "<name>"
+pm2 start ecosystem.json
 pm2 list
-pm2 show example
-pm2 restart example
-pm2 stop example
-pm2 logs example
 pm2 monit
+```
+
+```
+pm2 show <name or id>
+pm2 restart <name or id>
+pm2 stop <name or id>
+pm2 delete <name or id>
+pm2 logs <name or id>
 ```
 
 클러스터 (0 = cpu count)
 ```
-pm2 start app.js -i 0 --name "example"
-```
-
-설정 파일에서 실행
-```
-pm2 start ecosystem.json
+pm2 start app.js -i 0 --name "<name>"
 ```
