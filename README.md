@@ -44,7 +44,8 @@ pm2 start ecosystem.json
 
 
 ## Usage Example
-`http://<server-ip>:<port>/<lib-name>?q=<book-name>`
++ v.2.x : `http://<server-ip>:<port>/search/<lib-name>/<book-name>`
++ v.1.x : `http://<server-ip>:<port>/<lib-name>?q=<book-name>`
 
 *더 많은 예제와 API 명세는 [위키][Wiki]에서 보실 수 있습니다.*<br>
 *For more examples and usage, please refer to the [Wiki][Wiki].*
