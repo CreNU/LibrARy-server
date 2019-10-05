@@ -40,7 +40,7 @@ const jbnuRouter   = require('./routes/jbnu');
 app.use('/'      , indexRouter);
 app.use('/search', searchRouter);
 app.use('/nl'    , nlRouter); // 국립중앙도서관
-app.use('/jbnu'  , jbnuRouter); // 전북대학교 중앙도서관
+//app.use('/jbnu'  , jbnuRouter); // 전북대학교 중앙도서관
 
 
 // 미등록 페이지는 오류로 처리
