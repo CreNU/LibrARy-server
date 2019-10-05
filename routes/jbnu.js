@@ -1,27 +1,27 @@
-// 익스프레스 로드
+// 익스프레스
 const express   = require('express');
 const router    = express.Router();
 
-// 라이브러리 로드
+// 라이브러리
 const request   = require('request');
 const cheerio   = require('cheerio');
 const urlencode = require('urlencode');
 const mysql     = require('mysql');
 
 // 기타
-const common    = require('./common');
+const com       = require('./common');
 
 // 요청 처리
 router.get('/', async (req, res, next) => {
-    let book_name = req.query.q;
-    if (book_name === undefined || book_name.length <= 1) { // 쿼리 내용이 없거나 한 글자인 경우
+    let bookName = req.query.q;
+    if (bookName === undefined || bookName.length <= 1) { // 쿼리 내용이 없거나 한 글자인 경우
         res.json([]);
         return;
     }
-    req.connection.setTimeout(1000 * 60); // request가 중복 요청되는 현상 방지
+    req.connection.setTimeout(1000 * 30); // 30sec
 
     const param = {
-        q        : urlencode(book_name), // 검색어
+        q        : urlencode(bookName), // 검색어
         st       : 'KWRD',
         si       : 'TOTAL',
         lmtst    : 'OR',
@@ -32,7 +32,7 @@ router.get('/', async (req, res, next) => {
         bk_0     : 'jttjmjttj',        // 단행본
         briefType: 'T',                // 테이블 형태
     };
-    const url = common.makeUrl('http://dl.jbnu.ac.kr/search/tot/result', param);
+    const url = com.makeUrl('http://dl.jbnu.ac.kr/search/tot/result', param);
     const headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0'
     };
@@ -63,9 +63,9 @@ router.get('/', async (req, res, next) => {
             }
             result.push({
                 title     : $(elem).find('.searchTitle').text(),
-                author    : common.trimTab($(elem).find('td:nth-child(4)').text()),
-                publisher : common.trimTab($(elem).find('td:nth-child(5)').text()),
-                symbol    : common.trimTab($(elem).find('td:nth-child(6)').text()), // 십진분류 청구기호
+                author    : com.trimTab($(elem).find('td:nth-child(4)').text()),
+                publisher : com.trimTab($(elem).find('td:nth-child(5)').text()),
+                symbol    : com.trimTab($(elem).find('td:nth-child(6)').text()), // 십진분류 청구기호
                 canBorrow : $(elem).find('.briefDeFont').text().includes('중앙도서관 대출가능'), // 대출가능 여부
             });
         });
@@ -86,23 +86,26 @@ router.get('/', async (req, res, next) => {
         for (const item of result) {
             try {
                 const symbol = item['symbol'].replace(/[`~!@#$%^&*_|+\-=?;:'",<>\{\}\\\/]/gi, '').trim();
-                const query  = "SELECT * FROM `" + dbTable + "` WHERE symbol >= '" + symbol + "' ORDER BY pos LIMIT 1;";
+                const query  = "SELECT * FROM `" + dbTable + "` WHERE symbol >= '" + symbol + "' ORDER BY symbol LIMIT 1;";
                 const pos    = await doQuery(dbConn, query);
 
                 if (pos.length > 0) { // 위치 정보가 있을 경우
                     const p = pos[0]['pos'] - 1; // 1~66 -> 0~65
                     item['floor']       = pos[0]['floor'];
                     item['shelf']       = pos[0]['shelf'];
-                    item['pos']         = pos[0]['shelf'];
+                    item['pos']         = pos[0]['pos'];
                     item['dir']         = pos[0]['dir'];
                     item['col']         = parseInt(p / 6);
                     item['row']         = (p % 6);
                     item['success']     = true;
                     item['arAvailable'] = true;
 
-                    if (item['dir'] === 1) { // 왼쪽일 경우 위치 수정
+                    if (item['dir'] === 1) { // Left
                         item['col']     = 11 - item['col'];
-                        item['row']     = 6 - item['row'];
+                        item['row']     =  6 - item['row'];
+                    } else { // Right
+                        item['col']++;
+                        item['row']++;
                     }
                 } else {
                     item['success']     = false;
