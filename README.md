@@ -67,13 +67,6 @@ pm2 start ecosystem.json
   - 초기 안정화 버전.
 + v.0.0.0 :
   - 알파 버전.
-  - 프로세스가 간헐적으로 꺼지는 문제가 있습니다.
-
-
-## Before Deploy
-+ ~~프로덕션 모드 활성화 잊지 말기! `export NODE_ENV=production`~~ (`pm2 start ecosystem.json`)
-+ 포트 바꾸는것도 잊지 말기! ~~`export PORT=12345`~~ (`ecosystem.json`에서 바꿀 것.)
-+ ~~패키지 정리하기! `npm prune`~~ (완료.)
 
 
 ## Contributing
