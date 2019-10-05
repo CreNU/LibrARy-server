@@ -2,7 +2,15 @@
 const request   = require('request');
 const mysql     = require('mysql');
 
+/*
+String.prototype.replaceAll = function(org, dest) {
+    return this.split(org).join(dest);
+}*/
+
 // 공통 함수
+const replaceAll = (str, org, dest) => {
+    return str.split(org).join(dest);
+}
 const trimTab = (str) => {
     return str.replace(/[\t\n\r]/gm, "").trim(); //str.replace(/^\s*|\s*$/g, "");
 };
@@ -43,10 +51,13 @@ const doQuery = (connection, query) => {
 
 
 module.exports = {
+    // 함수
+    replaceAll,
     trimTab,
     removeSpecialChars,
     makeUrl,
 
+    // 프로미스 함수
     doRequest,
     doQuery,
 };

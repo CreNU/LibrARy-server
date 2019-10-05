@@ -27,7 +27,7 @@ const search    = async (title) => {
     };
 
 
-    // 전자도서관 쿼리
+    // HTTP 요청
     let body;
     try {
         body = await com.doRequest({
@@ -41,7 +41,7 @@ const search    = async (title) => {
     }
 
 
-    // 파싱
+    // 데이터 파싱
     const result = [];
     try {
         const $ = cheerio.load(body);

@@ -45,7 +45,7 @@ router.get('/:lib/:book', async (req, res, next) => {
     let libRouter;
     switch (libName) {
         case 'jbnu':
-        //case 'nl':
+        case 'nl':
             libRouter = require('./' + libName);
             break;
 
@@ -61,7 +61,6 @@ router.get('/:lib/:book', async (req, res, next) => {
         return;
     }
     
-
     // 테스트 데이터베이스
     if (libName === 'jbnu')
         libName = 'jbnu2';
