@@ -1,7 +1,7 @@
 # 🖥️ librARy-server
 
 ![](https://img.shields.io/badge/librARy-server-orange)
-![](https://img.shields.io/badge/npm-v.1.5.1-orange)
+![](https://img.shields.io/badge/npm-v.2.0.0-orange)
 
 ![](https://img.shields.io/github/languages/count/crenu/library-server)
 ![](https://img.shields.io/github/languages/top/crenu/library-server)
@@ -51,6 +51,9 @@ pm2 start ecosystem.json
 
 
 ## Release History
++ v.2.0.0 :
+  - 쿼리 요청 방식이 변경되었습니다.
+  - `success`가 `arAvailable`으로 변경되었습니다.
 + v.1.5.1 :
   - `dir`이 추가되었습니다.
   - 자세한 내용은 위키를 참고해 주세요.
@@ -86,6 +89,7 @@ pm2 start ecosystem.json
 4. Commit your changes.
 5. Push to the branch.
 6. Create a new pull-request.
+
 
 ## License
 [MIT License](./LICENSE.md)
