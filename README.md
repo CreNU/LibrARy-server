@@ -51,7 +51,7 @@ pm2 start ecosystem.json
 *For more examples and usage, please refer to the [Wiki][Wiki].*
 
 
-## Release History
+## Version History
 + v.2.0.0 :
   - 쿼리 요청 방식이 변경되었습니다.
   - `success`가 `arAvailable`으로 변경되었습니다.
