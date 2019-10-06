@@ -60,10 +60,6 @@ router.get('/:lib/:book', async (req, res, next) => {
         res.json([]);
         return;
     }
-    
-    // 테스트 데이터베이스
-    if (libName === 'jbnu')
-        libName = 'jbnu2';
 
     // 책 위치 쿼리
     const dbConfig = req.app.get('config').database;
