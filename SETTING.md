@@ -1,12 +1,12 @@
-# 서버 셋팅
+# Server Setting
 
-## Node.js v.10.x 설치
+## Install Node.js v.10.x
 ```
 curl -sL https://rpm.nodesource.com/setup_10.x | bash -
 sudo yum install -y nodejs
 node -v
 ```
-또는
+or
 ```
 sudo yum clean all && sudo yum makecache fast
 sudo yum install -y gcc-c++ make
@@ -14,7 +14,7 @@ sudo yum install -y nodejs
 node -v
 ```
 
-## MariaDB v.10.3 설치
+## Install MariaDB v.10.3
 `/etc/yum.repos.d/MariaDB.repo` 생성 후 아래 내용 추가
 ```
 [mariadb]
@@ -79,7 +79,7 @@ update user set password=password('new_password') where user='user_name';
 flush privileges;
 ```
 
-## MariaDB 포트 변경
+## Change MariaDB Port
 `sestatus`로 SELinux 활성화 여부 확인
 
 활성화된 경우 
@@ -107,13 +107,13 @@ port=12345
 systemctl restart mariadb
 ```
 
-## 데이터베이스 접속
+## Connect Database
 + MySQL Workbench
 + phpMyAdmin
 + [HeidiSQL](https://www.heidisql.com/)
 + ...
 
-# pm2 설치
+# Install pm2
 전역 설치
 ```
 npm install pm2 -g
