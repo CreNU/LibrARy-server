@@ -113,7 +113,7 @@ systemctl restart mariadb
 + [HeidiSQL](https://www.heidisql.com/)
 + ...
 
-# Install pm2
+## Install pm2
 전역 설치
 ```
 npm install pm2 -g
