@@ -29,8 +29,8 @@
 Node.js와 MariaDB가 필요합니다. [SETTING.md](./SETTING.md)를 참고해 설치해 주세요.<br>
 See [SETTING.md](./SETTING.md) to install Node.js and MariaDB.
 
-`config_.json`에서 데이터베이스 정보를 수정하고 이름을 `config.json`으로 바꿔주세요.<br>
-Edit the database information in `config_.json` and change name to `config.json`.
+[`config_.json`](./config_.json)에서 데이터베이스 정보를 수정하고 이름을 `config.json`으로 바꿔주세요.<br>
+Edit the database information in [`config_.json`](./config_.json) and change name to `config.json`.
 
 패키지는 다음과 같이 설치하고 실행합니다 :<br>
 Install and run the package as follows :
