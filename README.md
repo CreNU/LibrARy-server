@@ -1,4 +1,4 @@
-# 🖥️ librARy-server
+# 🖥️ LibrARy-server
 
 ![](https://img.shields.io/badge/librARy-server-orange)
 ![](https://img.shields.io/badge/npm-v.2.0.0-orange)
@@ -11,7 +11,7 @@
 ![](https://img.shields.io/github/issues-closed/crenu/library-server)
 ![](https://img.shields.io/github/last-commit/crenu/library-server)
 
-### [librARy](https://github.com/CreNU/librARy-unity)의 API 서버입니다.
+### [LibrARy](https://github.com/CreNU/LibrARy-unity)의 API 서버입니다.
 ### API 명세 및 Unity 연동 예제는 [위키 페이지][Wiki]에서 보실 수 있습니다.
 
 ## Environment
@@ -82,8 +82,3 @@ pm2 start ecosystem.json
 
 ## License
 [MIT License](./LICENSE.md)
-
-
-
-
-[Wiki]: https://github.com/CreNU/librARy-server/wiki
