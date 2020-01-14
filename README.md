@@ -11,24 +11,12 @@
 ![](https://img.shields.io/github/issues-closed/crenu/library-server)
 ![](https://img.shields.io/github/last-commit/crenu/library-server)
 
-### [LibrARy](https://github.com/CreNU/LibrARy-unity)의 API 서버입니다.
-### API 명세 및 Unity 연동 예제는 [위키 페이지][Wiki]에서 보실 수 있습니다.
-
 ## Environment
 + CentOS v.7.3
 + Node.js v.10
 + MariaDB v.10.3
 
-
 ## Installation
-Node.js와 MariaDB가 필요합니다. [SETTING.md](./SETTING.md)를 참고해 설치해 주세요.<br>
-See [SETTING.md](./SETTING.md) to install Node.js and MariaDB.
-
-[`config_.json`](./config_.json)에서 데이터베이스 정보를 수정하고 이름을 `config.json`으로 바꿔주세요.<br>
-Edit the database information in [`config_.json`](./config_.json) and change name to `config.json`.
-
-패키지는 다음과 같이 설치하고 실행합니다 :<br>
-Install and run the package as follows :
 ```
 git clone https://github.com/CreNU/librARy-server
 cd librARy-server
@@ -37,14 +25,8 @@ npm install pm2 -g
 pm2 start ecosystem.json
 ```
 
-
 ## Usage Example
-+ v.2.x : `http://<server-ip>:<port>/search/<lib-name>/<book-name>`
-+ v.1.x : `http://<server-ip>:<port>/<lib-name>?q=<book-name>`
-
-*더 많은 예제와 API 명세는 [위키][Wiki]에서 보실 수 있습니다.*<br>
-*For more examples and usage, please refer to the [Wiki][Wiki].*
-
++ `http://<server-ip>:<port>/search/<lib-name>/<book-name>`
 
 ## Version History
 + v.2.0.0 :
@@ -63,7 +45,6 @@ pm2 start ecosystem.json
 + v.0.0.0 :
   - 알파 버전.
 
-
 ## Contributing
 1. **먼저 [CONTRIBUTING.md](./CONTRIBUTING.md)를 읽어주세요.**
 2. 레파지토리를 포크해 주세요. (https://github.com/CreNU/librARy-server/fork)
@@ -78,7 +59,3 @@ pm2 start ecosystem.json
 4. Commit your changes.
 5. Push to the branch.
 6. Create a new pull-request.
-
-
-## License
-[MIT License](./LICENSE.md)
